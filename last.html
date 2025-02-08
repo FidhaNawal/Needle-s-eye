@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pattern Generator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      margin-top: 20px;
+    }
+    canvas {
+      border: 1px solid black;
+      margin-top: 20px;
+    }
+    /* Styles for SVG drawn elements */
+    .measurement-line {
+      stroke: black;
+      stroke-width: 2;
+      fill: none;
+    }
+    .measurement-text {
+      font-size: 12px;
+      fill: black;
+    }
+    /* Optional: spacing for form inputs */
+    form label,
+    form input {
+      display: block;
+      margin: 5px 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>Custom Pattern Generator</h1>
+  <!-- Wrap inputs in a form so the submit event can be handled -->
+  <form id="measurementForm" class="container">
+    <label for="chest">Chest:</label>
+    <input type="number" id="chest" value="9" step="any" />
+    <label for="waist">Waist:</label>
+    <input type="number" id="waist" value="8" step="any" />
+    <label for="hips">Hips:</label>
+    <input type="number" id="hips" value="10" step="any" />
+    <label for="shoulder">Shoulder:</label>
+    <input type="number" id="shoulder" value="8" step="any" />
+    <button type="submit">Generate Pattern</button>
+  </form>
+
+  <!-- Canvas container for the drawn pattern -->
+  <div class="container">
+    <canvas id="patternCanvas" width="500" height="700"></canvas>
+  </div>
+
+  <!-- SVG container for the pattern with measurement labels -->
+  <div class="pattern-container">
+    <svg id="patternSVG" width="600" height="600"></svg>
+  </div>
+
+  <script>
+    // Canvas drawing function – uses measurements to draw a pattern shape.
+    function drawPattern(measurement) {
+      // Multiply each measurement by 10 to scale it (adjust as needed)
+      const chest   = measurement.chest * 10;
+      const waist   = measurement.waist * 10;
+      const hips    = measurement.hips * 10;
+      const shoulder = measurement.shoulder * 10;
+      
+      const canvas = document.getElementById('patternCanvas');
+      const ctx = canvas.getContext('2d');
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      ctx.beginPath();
+      
+      // Define a starting point (adjust these as needed for your design)
+      let startX = 150, startY = 50;
+      ctx.moveTo(startX, startY);
+      
+      // Draw the shoulder line
+      ctx.lineTo(startX + shoulder, startY);
+      
+      // Back neck curve
+      ctx.lineTo(startX + shoulder, startY + 15);
+      ctx.quadraticCurveTo(startX + shoulder - 10, startY + 25, startX + shoulder - 30, startY + 30);
+      
+      // Armhole curve
+      ctx.quadraticCurveTo(startX + shoulder - 50, startY + 60, startX + shoulder - 30, startY + 100);
+      ctx.lineTo(startX + chest, startY + 140);
+      ctx.lineTo(startX, startY + 140);
+      
+      // Waist section
+      ctx.lineTo(startX + waist, startY + 200);
+      ctx.lineTo(startX, startY + 200);
+      
+      // Hip section
+      ctx.lineTo(startX + hips, startY + 260);
+      ctx.lineTo(startX, startY + 260);
+      
+      // Close the shape
+      ctx.lineTo(startX, startY);
+      
+      ctx.strokeStyle = 'black';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+    }
+    
+    // SVG drawing functions – these functions create labeled measurements.
+    function generatePattern(measurement) {
+      const svg = document.getElementById('patternSVG');
+      svg.innerHTML = ''; // Clear previous SVG drawing
+
+      // Calculate additional values (you can refine these calculations)
+      const calculations = {
+        neckWidth: measurement.shoulder / 6,
+        armholeDepth: measurement.chest / 6 + 2,
+        frontNeckLength: measurement.shoulder / 4 + 0.5,
+        waistHeight: 8 + 0.5,
+        seatHeight: 10 + 0.5
+      };
+
+      // Draw the individual pattern pieces into the SVG container
+      drawNeck(svg, calculations.neckWidth);
+      drawArmhole(svg, calculations.armholeDepth);
+      drawWaist(svg, calculations.waistHeight);
+      // Additional drawing functions can be added here as needed
+    }
+
+    function drawNeck(svg, width) {
+      // Multiply by 10 to scale the SVG drawing (adjust as needed)
+      const scaledWidth = width * 10;
+      const neck = document.createElementNS("http://www.w3.org/2000/svg", "path");
+      neck.setAttribute("d", `M 100,100 L ${100 + scaledWidth},100`);
+      neck.classList.add('measurement-line');
+      svg.appendChild(neck);
+      
+      addMeasurementText(svg, 100 + scaledWidth/2, 95, `${width}"`);
+    }
+
+    function drawArmhole(svg, depth) {
+      // Multiply by 10 for scaling
+      const scaledDepth = depth * 10;
+      const armhole = document.createElementNS("http://www.w3.org/2000/svg", "path");
+      armhole.setAttribute("d", `M 150,150 Q 200,${150 + scaledDepth} 250,150`);
+      armhole.classList.add('measurement-line');
+      svg.appendChild(armhole);
+      
+      addMeasurementText(svg, 200, 150 + scaledDepth + 15, `${depth}"`);
+    }
+
+    function drawWaist(svg, height) {
+      // Multiply by 10 for scaling
+      const scaledHeight = height * 10;
+      const waist = document.createElementNS("http://www.w3.org/2000/svg", "line");
+      waist.setAttribute("x1", "100");
+      waist.setAttribute("y1", "200");
+      waist.setAttribute("x2", "300");
+      waist.setAttribute("y2", `${200 + scaledHeight}`);
+      waist.classList.add('measurement-line');
+      svg.appendChild(waist);
+      
+      addMeasurementText(svg, 300, 200 + scaledHeight/2, `${height}"`);
+    }
+
+    function addMeasurementText(svg, x, y, text) {
+      const textElement = document.createElementNS("http://www.w3.org/2000/svg", "text");
+      textElement.setAttribute("x", x);
+      textElement.setAttribute("y", y);
+      textElement.classList.add('measurement-text');
+      textElement.textContent = text;
+      svg.appendChild(textElement);
+    }
+
+    // Listen for the form submission and use the input measurements to generate both patterns.
+    document.getElementById('measurementForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      
+      const measurement = {
+        chest: parseFloat(document.getElementById('chest').value),
+        waist: parseFloat(document.getElementById('waist').value),
+        hips: parseFloat(document.getElementById('hips').value),
+        shoulder: parseFloat(document.getElementById('shoulder').value)
+      };
+
+      drawPattern(measurement);
+      generatePattern(measurement);
+      // Optionally, reset the form if desired:
+      // this.reset();
+    });
+  </script>
+</body>
+</html>

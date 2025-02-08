@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .measurement-form {
+            display: flex;
+            flex-direction: column; /* Stack labels and inputs */
+            gap: 10px; /* Space between form elements */
+            max-width: 400px; /* Limit form width */
+            margin: 20px auto; /* Center the form */
+        }
+        .preset-sizes {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .preset-sizes button {
+            padding: 8px 16px;
+            border: none;
+            background-color: #eee;
+            cursor: pointer;
+        }
+        .submitflex {
+            padding: 8px 16px;
+            border: none;
+            background-color:#eee;
+            color: #1e08c5;
+            cursor: pointer;
+            display: flex;
+            justify-content:center;
+        }
+        label {
+            margin-bottom: 5px; /* Space below labels */
+        }
+
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Enter Measurements</h1>
+    </div>
+    <div class="container">
+      <img src="sizechart.jpg" alt="Size Chart" width="300"> <br>  </div>
+
+    <form class="measurement-form" id="measurementForm">
+        <div class="preset-sizes">
+            <button type="button" onclick="setPreset('s')">S</button>
+            <button type="button" onclick="setPreset('m')">M</button>
+            <button type="button" onclick="setPreset('l')">L</button>
+            <button type="button" onclick="setPreset('xl')">XL</button>
+            <button type="button" onclick="setPreset('xxl')">XXL</button>
+        </div>
+
+        <label for="chest">Chest:</label>
+        <input type="number" id="chest" name="chest">
+
+        <label for="waist">Waist:</label>
+        <input type="number" id="waist" name="waist">
+
+        <label for="hips">Hips:</label>
+        <input type="number" id="hips" name="hips">
+        <label for="shoulder">Shoulder:</label>
+        <input type="number" id="shoulder" name="shoulder">
+        <div class="submitflex">
+
+        <button id="button" type="submit" style="width: 200px;height: 60px;text-align: center;color: #eee; background-color: #503fd4;">Submit</button>
+         </div>
+    </form>
+
+   
+    <script src="index.js"></script>
+</body>
+</html>
