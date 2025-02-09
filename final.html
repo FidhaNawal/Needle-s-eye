@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Measurement Output Generator</title>
+  <style>
+    
+    .measurement-form {
+      display: flex;
+      flex-direction: column; /* Stack labels and inputs */
+      gap: 10px; /* Space between form elements */
+      max-width: 400px; /* Limit form width */
+      margin: 20px auto; /* Center the form */
+    }
+    .preset-sizes {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .preset-sizes button {
+      padding: 8px 16px;
+      border: none;
+      background-color: #eee;
+      cursor: pointer;
+    }
+    .submitflex {
+      display: flex;
+      justify-content: center;
+    }
+    #button {
+      width: 200px;
+      height: 60px;
+      text-align: center;
+      color: #eee;
+      background-color: #503fd4;
+      border: none;
+      cursor: pointer;
+    }
+    label {
+      margin-bottom: 5px; /* Space below labels */
+    }
+    .output {
+      max-width: 400px;
+      margin: 20px auto;
+      padding: 10px;
+      border: 1px solid #ccc;
+      background-color: #f9f9f9;
+    }
+    .image-container {
+    display: flex;         /* Enables flexbox */
+    justify-content: center; /* Centers the images horizontally */
+    gap: 40px;             /* Adds space between the images */
+    margin-top: 30px;      /* Adds some space below the header */
+}
+
+.image-container img:first-child { /*specifically target the image inside*/
+  margin-top: 50px;  
+  max-width: 250px;      /* Ensures the images are responsive */
+    height: 200px;         /* Maintains aspect ratio */
+}
+
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>Enter Measurements</h1>
+  </div>
+  <div class="image-container">
+    <img src="sizechart.jpg" alt="Size Chart" width="300">
+    <img src="pattern.jpg" alt="Pattern" width="250" height="300">
+  
+</div>
+
+  <form class="measurement-form" id="measurementForm">
+    <div class="preset-sizes">
+      <button type="button" onclick="setPreset('s')">S</button>
+      <button type="button" onclick="setPreset('m')">M</button>
+      <button type="button" onclick="setPreset('l')">L</button>
+      <button type="button" onclick="setPreset('xl')">XL</button>
+      <button type="button" onclick="setPreset('xxl')">XXL</button>
+    </div>
+
+    <label for="chest">Chest:</label>
+    <input type="number" id="chest" name="chest" />
+
+    <label for="waist">Waist:</label>
+    <input type="number" id="waist" name="waist" />
+
+    <label for="hips">Hips:</label>
+    <input type="number" id="hips" name="hips" />
+
+    <label for="shoulder">Shoulder:</label>
+    <input type="number" id="shoulder" name="shoulder" />
+
+    <div class="submitflex">
+      <button id="button" type="submit">Submit</button>
+    </div>
+  </form>
+
+  <!-- Container for displaying calculated measurements -->
+  <div class="output" id="outputMeasurements">
+    <!-- Calculated measurements will appear here -->
+  </div>
+
+  <script>
+    // Preset sizes for convenience (you can adjust these values as needed)
+    const presetSizes = {
+      s: { chest: 38, waist: 35, hips: 41, shoulder: 16 },
+      m: { chest: 40, waist: 37, hips: 43, shoulder: 17 },
+      l: { chest: 42, waist: 39, hips: 45, shoulder: 18 },
+      xl: { chest: 44, waist: 41, hips: 47, shoulder: 19 },
+      xxl: { chest: 46, waist: 43, hips: 49, shoulder: 20 }
+    };
+
+    function setPreset(size) {
+      const selectedSize = presetSizes[size];
+      if (selectedSize) {
+        document.getElementById('chest').value = selectedSize.chest;
+        document.getElementById('waist').value = selectedSize.waist;
+        document.getElementById('hips').value = selectedSize.hips;
+        document.getElementById('shoulder').value = selectedSize.shoulder;
+      }
+    }
+
+    // Listen for form submission to calculate and display measurements
+    document.getElementById('measurementForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      // Retrieve input values from the form
+      const chest = parseFloat(document.getElementById('chest').value);
+      const waist = parseFloat(document.getElementById('waist').value);
+      const hips = parseFloat(document.getElementById('hips').value);
+      const shoulder = parseFloat(document.getElementById('shoulder').value);
+
+      // Fixed lengths
+      const fullLength = 40;
+      const waistLength = 13;
+      const hipLength = 20;
+
+      // Calculate outputs using the provided formulas:
+      // A = full length + 1.5
+      const A = fullLength + 1.5;
+      // B = half shoulder
+      const B = shoulder / 2;
+      // C = half shoulder (again)
+      const C = shoulder / 2;
+      // D = 1/4 chest round + 2
+      const D = (chest / 4) + 2;
+      // E = waist length + 1.5
+      const E = waistLength + 1.5;
+      // F = 1/4 waist round + 2
+      const F = (waist / 4) + 2;
+      // G = hip length (fixed)
+      const G = hipLength;
+      // H = 1/4 hip round + 2
+      const H = (hips / 4) + 2;
+
+      // Create HTML output for the calculated measurements
+      const outputHTML = `
+        <h2>Calculated Measurements</h2>
+        <p><strong>A</strong> (Full Length + 1.5): ${A}</p>
+        <p><strong>B</strong> (Half Shoulder): ${B}</p>
+        <p><strong>C</strong> (Half Shoulder): ${C}</p>
+        <p><strong>D</strong> (1/4 Chest Round + 2): ${D}</p>
+        <p><strong>E</strong> (Waist Length + 1.5): ${E}</p>
+        <p><strong>F</strong> (1/4 Waist Round + 2): ${F}</p>
+        <p><strong>G</strong> (Hip Length): ${G}</p>
+        <p><strong>H</strong> (1/4 Hip Round + 2): ${H}</p>
+      `;
+
+      // Display the output in the designated container
+      document.getElementById('outputMeasurements').innerHTML = outputHTML;
+    });
+  </script>
+</body>
+</html>
