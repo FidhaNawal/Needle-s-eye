@@ -1,28 +1,33 @@
-NEEDLE'S EYE
-A WEBSITE TO AUTOMATE MEASUREMENT GENERATION FOR STITCHING PATTERNS
+# NEEDLE'S EYE
 
-TEAM NAME:ANSAR
+
+
+*A WEBSITE TO AUTOMATE MEASUREMENT GENERATION FOR STITCHING PATTERNS*
+
+**TEAM NAME:ANSAR**
 
 Member1:Fidha Nawal-Ansar women's college perumpilavu
+
 Member2:Naseeha E.N-Ansar women's college perumpilavu
+
 Member1:Rasmiya Nasrin P.T-Ansar women's college perumpilavu
 
 Hosted project link:
 https://fidhanawal.github.io/Needle-s-eye/
 
-PROJECT DESCRIPTION
+### PROJECT DESCRIPTION
 
 
 The goal of this project is to develop a system that calculates precise measurements for sewing patterns based on individual body dimensions, ensuring a personalized fit for each user. By inputting specific body measurements, the system provides accurate data for pattern creation, facilitating the production of custom-fitted garments. This approach aims to enhance both bespoke tailoring and large-scale textile manufacturing by offering patterns that accommodate unique body shapes and sizes, thereby improving comfort and fit.
 
 In future developments, the system will incorporate functionality to resize existing patterns, allowing for greater versatility in garment production.
 
-THE PROBLEM STATEMENT
+### THE PROBLEM STATEMENT
 
 
 Manual calculation of stitching patterns is time-consuming and error-prone, leading to inaccuracies in garment fitting. This project automates the process by generating precise sewing patterns along with corresponding measurements based on individual body dimensions, ensuring accuracy, efficiency, and a personalized fit.
 
-THE SOLUTION
+### THE SOLUTION
 
 
 This project proposes a measurement-based pattern generation system that allows users to input their specific body dimensions to create personalized sewing patterns. The system will:
@@ -35,13 +40,14 @@ This project proposes a measurement-based pattern generation system that allows 
 
 4.Future Expansion – Introduce resizing functionality to modify existing patterns, increasing efficiency and versatility in garment production.
 
-TECHONOLOGIES USED
+### TECHONOLOGIES USED
 
 
 Languages:HTML,CSS,JAVASCRIPT
+
 Tool:VS code
 
-SCREEN SHORTS
+### SCREEN SHORTS
 
 <img width="1470" alt="Screenshot 2025-03-06 at 10 16 37 PM" src="https://github.com/user-attachments/assets/973c5e3f-d13f-4fb2-abd8-db37ce1ef829" />
 
