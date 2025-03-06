@@ -12,8 +12,7 @@ body {
 }
 
 .header {
-    background-color: #0b0a0c; /* Green button */
-    background-color: ; /* Darker header background */
+    background-color: #0b0a0c; /* Green button *//* Darker header background */
     color: white;
     text-align: center;
     padding: 1em 0;
