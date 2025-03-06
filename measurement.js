@@ -37,7 +37,13 @@ document.getElementById('measurementForm').addEventListener('submit', function(e
         hips: hips,
         shoulder: shoulder
     };
+    localStorage.setItem('chest', chest);
+    localStorage.setItem('waist', waist);
+    localStorage.setItem('hips', hips);
+    localStorage.setItem('shoulder', shoulder);
 
+    // Redirect to final.html
+    window.location.href = 'third.html';
     // Add the measurement object to the array
     measurementsData.push(measurement);
 

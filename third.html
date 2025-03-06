@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Final Measurements</title>
+  <style>
+    .output {
+      max-width: 400px;
+      margin: 20px auto;
+      padding: 10px;
+      border: 1px solid #ccc;
+      background-color: #f9f9f9;
+    }
+    .header {
+      text-align: center;
+      margin-top: 20px;
+    }
+  </style>
+  <link rel="stylesheet" href="stylecommon.css">
+</head>
+<body>
+
+  <div class="header">
+    <h1>Your Measurements</h1>
+    
+  </div>
+
+  <div class="output">
+    <h2>Selected Measurements</h2>
+    <p><strong>Chest:</strong> <span id="chestOutput"></span></p>
+    <p><strong>Waist:</strong> <span id="waistOutput"></span></p>
+    <p><strong>Hips:</strong> <span id="hipsOutput"></span></p>
+    <p><strong>Shoulder:</strong> <span id="shoulderOutput"></span></p>
+  </div>
+
+  <div class="output">
+    <img src="pattern.jpg" alt="Pattern" width="250" height="300">
+    <h2>Calculated Measurements</h2>
+    <p><strong>A</strong> (Full Length + 1.5): <span id="A"></span></p>
+    <p><strong>B</strong> (Half Shoulder): <span id="B"></span></p>
+    <p><strong>C</strong> (Half Shoulder): <span id="C"></span></p>
+    <p><strong>D</strong> (1/4 Chest Round + 2): <span id="D"></span></p>
+    <p><strong>E</strong> (Waist Length + 1.5): <span id="E"></span></p>
+    <p><strong>F</strong> (1/4 Waist Round + 2): <span id="F"></span></p>
+    <p><strong>G</strong> (Hip Length): <span id="G"></span></p>
+    <p><strong>H</strong> (1/4 Hip Round + 2): <span id="H"></span></p>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Retrieve measurements from localStorage
+        const chest = parseFloat(localStorage.getItem('chest')) || 0;
+        const waist = parseFloat(localStorage.getItem('waist')) || 0;
+        const hips = parseFloat(localStorage.getItem('hips')) || 0;
+        const shoulder = parseFloat(localStorage.getItem('shoulder')) || 0;
+
+        // Display retrieved measurements
+        document.getElementById('chestOutput').textContent = chest || 'N/A';
+        document.getElementById('waistOutput').textContent = waist || 'N/A';
+        document.getElementById('hipsOutput').textContent = hips || 'N/A';
+        document.getElementById('shoulderOutput').textContent = shoulder || 'N/A';
+
+        // Fixed lengths
+        const fullLength = 40;
+        const waistLength = 13;
+        const hipLength = 20;
+
+        // Calculate outputs:
+        document.getElementById('A').textContent = (fullLength + 1.5).toFixed(1);
+        document.getElementById('B').textContent = (shoulder / 2).toFixed(1);
+        document.getElementById('C').textContent = (shoulder / 2).toFixed(1);
+        document.getElementById('D').textContent = ((chest / 4) + 2).toFixed(1);
+        document.getElementById('E').textContent = (waistLength + 1.5).toFixed(1);
+        document.getElementById('F').textContent = ((waist / 4) + 2).toFixed(1);
+        document.getElementById('G').textContent = hipLength.toFixed(1);
+        document.getElementById('H').textContent = ((hips / 4) + 2).toFixed(1);
+    });
+  </script>
+
+</body>
+</html>
