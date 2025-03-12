@@ -4,13 +4,7 @@
 
 *A WEBSITE TO AUTOMATE MEASUREMENT GENERATION FOR STITCHING PATTERNS*
 
-**TEAM NAME:ANSAR**
 
-Member1:Fidha Nawal-Ansar women's college perumpilavu
-
-Member2:Naseeha E.N-Ansar women's college perumpilavu
-
-Member1:Rasmiya Nasrin P.T-Ansar women's college perumpilavu
 
 Hosted project link:
 https://fidhanawal.github.io/Needle-s-eye/
